@@ -20,7 +20,7 @@ def clear_text(raw_text: str):
 def update_folder(obsidian_folder: Path, folder: str):
     folder_path = Path(folder)
     obs_folder_path_files = list((obsidian_folder / folder).iterdir())
-    
+
     for file in obs_folder_path_files:
         raw_obs_file = clear_text(open(file).read())
         with open(folder_path / file.name, "w") as cur_file:
@@ -29,10 +29,10 @@ def update_folder(obsidian_folder: Path, folder: str):
 
 def update_verbs(obsidian_folder: Path):
     update_folder(obsidian_folder, "verbs")
-    verbs = [
+    verbs = sorted([
         (f.name.split(".")[0], open(f).readlines()[2].strip())
         for f in Path("verbs").iterdir()
-    ]
+    ])
     with open("verb_list.md", "w") as verb_list:
         verb_list.writelines(
             ["Глагол | Перевод\n", "----|----\n"] +
